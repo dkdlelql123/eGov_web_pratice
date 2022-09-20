@@ -32,7 +32,7 @@ ADD COLUMN use_yn VARCHAR(1);
 UPDATE tb_user
 SET use_yn = 'Y';
 
-# 게시판 테이블 생성 (게시물 아이디, 제목, 내용, 조회수, 작성자, 작성일)
+# 게시판 테이블 생성 (게시물 번호, 제목, 내용, 조회수, 작성자, 작성일)
 CREATE TABLE tb_board(
 idx INT(10) PRIMARY KEY AUTO_INCREMENT,
 title VARCHAR(100) NOT NULL,
