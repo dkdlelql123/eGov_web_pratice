@@ -13,11 +13,32 @@
 <script src="<c:url value='/js/jquery.min.js'/>"></script>
 <script src="<c:url value='/css/bootstrap/js/bootstrap.min.js'/>"></script>
 <script type="text/javaScript" language="javascript" defer="defer">
+// 등록 페이지 이동
 function add(){
 	location.href = "<c:url value='/mgmt.do'/>";
 }
+
+// 상세 페이지 이동
 function view(){
 	location.href = "<c:url value='/view.do'/>";
+}
+
+// 로그인 폼 체크
+function check(){ 
+	let userId = $("#userId").val().trim();
+	let userPw = $("#userPw").val().trim();
+	
+	if(userId == null || userId.length < 1){
+		alert("아이디를 입력해주세요.");
+		return false;
+	}
+	
+	if(userPw == null || userPw.length < 1){
+		alert("비밀번호를 입력해주세요.");
+		return false;
+	}
+	
+	return true;
 }
 </script>
 </head>
@@ -26,14 +47,14 @@ function view(){
 		<h1>My First Bootstrap Page</h1>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<form class="form-inline" action="/login.do">
+				<form class="form-inline" action="/login.do" method="post" onclick="return check();">
 					<div class="form-group">
-					  <label for="email">ID:</label>
-					  <input type="text" class="form-control" id="ID">
+					  <label for="userId">ID:</label>
+					  <input type="text" class="form-control" id="userId" name="userId" value="user1">
 					</div>
 					<div class="form-group">
-					  <label for="pwd">Password:</label>
-					  <input type="password" class="form-control" id="pwd">
+					  <label for="userPw">Password:</label>
+					  <input type="password" class="form-control" id="userPw" name="userPw" value="user1">
 					</div> 
 					<button type="submit" class="btn btn-default">로그인</button>
 				</form>
@@ -75,6 +96,21 @@ function view(){
 				<button type="button" class="btn btn-warning">취소</button>
 				<button type="button" class="btn btn-danger">삭제</button>-->
 			</div>
+		</div>
+		
+		<div class="well well-sm">댓글</div>
+		<div class="well well-lg">
+			<form class="form-horizontal" action="" method="post">
+				<div class="form-group">
+				  <label for="writer">writer:</label>
+				  <input type="writer" class="form-control" id="writer" name="writer">
+				</div>
+				<div class="form-group">
+				  <label for="reply">내용:</label>
+				  <textarea class="form-control" rows="3" id="reply" name="reply" maxlength="200"></textarea>
+				</div> 
+				<button type="submit" class="btn btn-default">작성</button>
+			</form>
 		</div>
 	</div>
 </body>
