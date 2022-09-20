@@ -12,7 +12,14 @@
 <link rel="stylesheet" href="<c:url value='/css/bootstrap/css/bootstrap.min.css'/>" />
 <script src="<c:url value='/js/jquery.min.js'/>"></script>
 <script src="<c:url value='/css/bootstrap/js/bootstrap.min.js'/>"></script>
-<script type="text/javaScript" language="javascript" defer="defer">
+<script type="text/javaScript" >
+$(document).ready(function(){
+	// 로그인시 msg 있을 경우
+	<c:if test="${msg != null}">	
+		alert("${msg}");
+	</c:if>
+});
+
 // 등록 페이지 이동
 function add(){
 	location.href = "<c:url value='/mgmt.do'/>";
@@ -40,6 +47,11 @@ function check(){
 	
 	return true;
 }
+//상세 페이지 이동
+function logout(){
+	location.href = "<c:url value='/logout.do'/>";
+}
+
 </script>
 </head>
 <body>
@@ -47,17 +59,22 @@ function check(){
 		<h1>My First Bootstrap Page</h1>
 		<div class="panel panel-default">
 			<div class="panel-heading">
+				<c:if test="${sessionScope.userName != null && sessionScope.userId != null}">
+					${sessionScope.userName}님 반갑습니다. <a href="javascript:logout();">로그아웃</a>
+				</c:if>
+				<c:if test="${sessionScope.userName == null && sessionScope.userId == null}">
 				<form class="form-inline" action="/login.do" method="post" onclick="return check();">
 					<div class="form-group">
 					  <label for="userId">ID:</label>
-					  <input type="text" class="form-control" id="userId" name="userId" value="user1">
+					  <input type="text" class="form-control" id="userId" name="userId" value="test1">
 					</div>
 					<div class="form-group">
 					  <label for="userPw">Password:</label>
-					  <input type="password" class="form-control" id="userPw" name="userPw" value="user1">
+					  <input type="password" class="form-control" id="userPw" name="userPw" value="test1">
 					</div> 
 					<button type="submit" class="btn btn-default">로그인</button>
 				</form>
+				</c:if>
 			</div>
 			<div class="panel-body">
 				<form class="form-inline" action="/list.do">
