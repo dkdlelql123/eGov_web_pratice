@@ -12,10 +12,14 @@
 <link rel="stylesheet" href="<c:url value='/css/bootstrap/css/bootstrap.min.css'/>" />
 <script src="<c:url value='/js/jquery.min.js'/>"></script>
 <script src="<c:url value='/css/bootstrap/js/bootstrap.min.js'/>"></script>
-<script type="text/javaScript" >
-$(document).ready(function(){
-	// 로그인시 msg 있을 경우
-	<c:if test="${msg != null}">	
+
+
+<c:set var="msg" value="${msg}" />
+<%-- <c:out value="${msg}" /> --%>
+
+<script type="text/javaScript" language="javascript" defer="defer">
+$( document ).ready(function() {
+	<c:if test="${!empty msg}">
 		alert("${msg}");
 	</c:if>
 });
@@ -30,20 +34,25 @@ function view(){
 	location.href = "<c:url value='/view.do'/>";
 }
 
+// 
+function setPwd(pw){ 
+	$('#userPw').val(pw)
+};
+ 
 // 로그인 폼 체크
 function check(){ 
 	let userId = $("#userId").val().trim();
 	let userPw = $("#userPw").val().trim();
 	
 	if(userId == null || userId.length < 1){
-		alert("아이디를 입력해주세요.");
+		alert("아이디를 선택해주세요.");
 		return false;
 	}
 	
 	if(userPw == null || userPw.length < 1){
 		alert("비밀번호를 입력해주세요.");
 		return false;
-	}
+	} 
 	
 	return true;
 }
@@ -55,6 +64,7 @@ function logout(){
 </script>
 </head>
 <body>
+ 
 	<div class="container">
 		<h1>My First Bootstrap Page</h1>
 		<div class="panel panel-default">
@@ -63,14 +73,20 @@ function logout(){
 					${sessionScope.userName}님 반갑습니다. <a href="javascript:logout();">로그아웃</a>
 				</c:if>
 				<c:if test="${sessionScope.userName == null && sessionScope.userId == null}">
-				<form class="form-inline" action="/login.do" method="post" onclick="return check();">
+				<form class="form-inline" action="/login.do" method="post" onsubmit="return check();">
 					<div class="form-group">
 					  <label for="userId">ID:</label>
-					  <input type="text" class="form-control" id="userId" name="userId" value="test1">
+					  <select class="form-control" id="userId" name="userId" onchange="setPwd(this.value);">
+				     	<option value="">선택하세요</option>
+					    <option value="test1">test1</option>
+					    <option value="test2">test2</option>
+					    <option value="admin">admin</option>
+					 </select>
+					 <!-- <input type="text" class="form-control" id="userId" name="userId" value="test1"> -->
 					</div>
 					<div class="form-group">
 					  <label for="userPw">Password:</label>
-					  <input type="password" class="form-control" id="userPw" name="userPw" value="test1">
+					  <input type="password" class="form-control" id="userPw" name="userPw" autoComplete="false">
 					</div> 
 					<button type="submit" class="btn btn-default">로그인</button>
 				</form>
@@ -108,27 +124,16 @@ function logout(){
 				  </table>
 			</div>
 			<div class="panel-footer"> 
+				<c:if test="${sessionScope.userName != null && sessionScope.userId != null}">
 				<button type="button" class="btn btn-success" onclick="javascript:add();">등록</button>
 				<!-- <button type="button" class="btn btn-info">수정</button> 
 				<button type="button" class="btn btn-warning">취소</button>
 				<button type="button" class="btn btn-danger">삭제</button>-->
+				</c:if>
 			</div>
 		</div>
 		
-		<div class="well well-sm">댓글</div>
-		<div class="well well-lg">
-			<form class="form-horizontal" action="" method="post">
-				<div class="form-group">
-				  <label for="writer">writer:</label>
-				  <input type="writer" class="form-control" id="writer" name="writer">
-				</div>
-				<div class="form-group">
-				  <label for="reply">내용:</label>
-				  <textarea class="form-control" rows="3" id="reply" name="reply" maxlength="200"></textarea>
-				</div> 
-				<button type="submit" class="btn btn-default">작성</button>
-			</form>
-		</div>
+		
 	</div>
 </body>
 </html>

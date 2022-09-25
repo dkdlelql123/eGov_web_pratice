@@ -22,6 +22,7 @@ function list(){
 	<div class="container">
 		<h1>My First Bootstrap Page</h1>
 		<div class="panel panel-default">
+		
 			<div class="panel-heading">
 				<p>안녕하세요</p>
 			</div>
@@ -71,6 +72,21 @@ function list(){
 				<button type="button" class="btn btn-danger">삭제</button>
 				<button type="button" class="btn btn-default" onclick="javascript:list();">목록</button>  
 			</div>
+		</div>
+		
+		<div class="well well-sm">댓글</div>
+		<div class="well well-lg">
+			<form class="form-horizontal" action="" method="post">
+				<div class="form-group">
+				  <label for="writer">writer:</label>
+				  <input type="writer" class="form-control" id="writer" name="writer">
+				</div>
+				<div class="form-group">
+				  <label for="reply">내용:</label>
+				  <textarea class="form-control" rows="3" id="reply" name="reply" maxlength="200"></textarea>
+				</div> 
+				<button type="submit" class="btn btn-default">작성</button>
+			</form>
 		</div>
 	</div>
 </body>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.example.board.service.BoardService;
 import egovframework.example.board.service.BoardVO;
@@ -61,32 +62,31 @@ public class BoardController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/login.do")
-	public String login(
+	public Object login(
 			@RequestParam("userId") String userId, 
 			@RequestParam("userPw") String userPw,
 			HttpServletRequest request,
 			ModelMap model) throws Exception { 
-		if(request.getSession().getAttribute("userName") != null ) { 
-			System.out.println("이미 로그인!!!!");
+		
+		// 이미 로그인 상태인지 확인
+		if(request.getSession().getAttribute("userName") != null ) {  
 			model.addAttribute("msg", "이미 로그인 상태입니다."); 
-			return ;
 		}
 		
 		BoardVO boardvo = new BoardVO();
 		boardvo.setUserID(userId);
 		boardvo.setUserPw(userPw);
-		
 		String name = boardService.selectLoginCheck(boardvo);
+		System.out.println(userId);
+		System.out.println(userPw);
 		
-		if(name != null && !"".equals(name)) {
-			System.out.println("로그인!!!!");
+		if(name != null && !"".equals(name)) { 
 			request.getSession().setAttribute("userId", userId);
-			request.getSession().setAttribute("userName", name);
-		} else { 
-			System.out.println("계정없음!!!!");
-			model.addAttribute("msg", "계정 정보가 일치하지 않거나 없습니다.");
-			return ;
+			request.getSession().setAttribute("userName", name); 
+		} else {  
+			model.addAttribute("msg", "로그인 정보가 일치하지 않습니다.");
 		}
+		
 		return "redirect:/list.do";
 	}
 	
