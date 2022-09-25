@@ -32,39 +32,34 @@ function list(){
 				  <div class="form-group">
 				    <label class="text-right col-sm-2" for="idx">idx:</label>
 				    <div class="col-sm-10">
-				      idx
+				      <c:out value="${boardVO.idx}" />
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="text-right col-sm-2" for="title">제목:</label>
 				    <div class="col-sm-10">
-				      제목
+				      <c:out value="${boardVO.title}" />
 				    </div>
 				  </div> 
 				  <div class="form-group">
 				    <label class="text-right col-sm-2" for="writer">작성자:</label>
 				    <div class="col-sm-10">
-				      작성자
+				      <c:out value="${boardVO.writerName}" />
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="text-right col-sm-2" for="indate">작성일:</label>
 				    <div class="col-sm-10">
-				      작성일
+				      <c:out value="${boardVO.indate}" />
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="text-right col-sm-2" for="indate">contents:</label>
 				    <div class="col-sm-2">
-				      contents
+				      <c:out value="${boardVO.contents}" />
 				    </div>
 				  </div>
-				
-				  <div class="form-group">
-				    <div class="col-sm-offset-2 col-sm-10">
-				      <button type="submit" class="btn btn-default">Submit</button>
-				    </div>
-				  </div>
+				 
 				</form>
 			</div>
 			<div class="panel-footer">  

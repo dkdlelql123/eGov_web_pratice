@@ -30,8 +30,8 @@ function add(){
 }
 
 // 상세 페이지 이동
-function view(){
-	location.href = "<c:url value='/view.do'/>";
+function view(idx){
+	location.href = "<c:url value='/view.do'/>?idx=" + idx;
 }
 
 // 
@@ -118,9 +118,9 @@ function logout(){
 				    <c:forEach var="board" items="${list}">
 				      <tr>
 				        <td><c:out value="${board.idx}" /></td>
-				        <td><a href="javascript:view();"><c:out value="${board.title}" /></a></td> 
+				        <td><a href="javascript:view(${board.idx});"><c:out value="${board.title}" /></a></td> 
 				        <td><c:out value="${board.count}" /></td>
-				        <td><c:out value="${board.writer}" /></td>
+				        <td><c:out value="${board.writerName}" /></td>
 				        <td><c:out value="${board.indate}" /></td>
 				      </tr> 
 				      </c:forEach>

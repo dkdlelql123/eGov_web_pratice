@@ -30,27 +30,23 @@
 	</insert>
 
 	<update id="updateBoard">
-
 			UPDATE tb_board
 			SET TITLE=#{title}
-				, CONTENTS=#{contents}
-				WHERE IDX=#{idx}
+			, CONTENTS=#{contents}
+			WHERE IDX=#{idx}
 
 	</update>
 
-	<delete id="deleteBoard">
-
+	<delete id="deleteBoard"> 
 			DELETE FROM tb_board
-			WHERE IDX=#{idx}
-
+			WHERE IDX=#{idx} 
 	</delete>
 
-	<select id="selectBoard" resultMap="board">
-
+	<select id="selectBoard" resultMap="board"> 
 			SELECT
 				a.IDX as idx
 				  , a.TITLE as title
-				  , a.CONTNETS as contents
+				  , a.CONTENTS as contents
 				  , a.COUNT as count
 				  , a.WRITER as writer
 				  , a.INDATE as indate
@@ -58,8 +54,7 @@
 			FROM tb_board a 
 			LEFT JOIN tb_user b
 			ON a.WRITER = b.USERID
-			WHERE IDX=#{idx}
-
+			WHERE IDX=#{idx} 
 	</select>
 
 	<select id="selectBoardList" parameterType="boardVO" resultType="boardVO"> 
@@ -71,13 +66,13 @@
 				  , b.NAME as writerName
 			FROM tb_board a 
 			LEFT JOIN tb_user b
-			ON a.WRITER = b.userID
+			ON a.WRITER = b.USERID
 			WHERE 1=1
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        AND	a.TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
 		        OR a.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
-			ORDER BY a.IDX ASC
+			ORDER BY a.IDX DESC
 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} -->
 	</select>
 

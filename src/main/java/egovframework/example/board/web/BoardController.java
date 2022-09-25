@@ -92,7 +92,7 @@ public class BoardController {
 	
 	/**
 	 * 등록/수정화면에서 글을 작성, 수정한다. 
-	 * @return "board/view"
+	 * @return "board/list"
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/addMgmt.do") 
@@ -109,7 +109,11 @@ public class BoardController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/view.do")
-	public String view(ModelMap model) throws Exception {
+	public String view(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception { 
+		
+		BoardVO findBoard = boardService.selectBoard(boardVO);
+		System.out.println(findBoard);
+		model.addAttribute("boardVO", findBoard);
 		return "board/view";
 	}
 	
