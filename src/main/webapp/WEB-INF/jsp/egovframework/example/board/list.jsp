@@ -93,13 +93,17 @@ function logout(){
 				</c:if>
 			</div>
 			<div class="panel-body">
-				<form class="form-inline" action="/list.do">
-					<div class="form-group">
-					  <label for="email">검색</label>
-					  <input type="text" class="form-control" id="검색어를 입력해주세요.">
+				<div class="row">	
+				<div class="col-sm-8">
+					<div class="btn btn-default disabled">총 <c:out value="${tot}"/>개</div>
+				</div>
+				<form class="form-inline" action="/list.do" action="POST">
+					<div class="form-group"> 
+					  <input type="text" id="searchKeyword" name="searchKeyword" class="form-control" placeholder="검색어를 입력해주세요.">
 					</div> 
 					<button type="submit" class="btn btn-default">검색</button>
 				</form>
+				</div>
 				<table class="table table-striped table-hover">
 				    <thead>
 				      <tr>

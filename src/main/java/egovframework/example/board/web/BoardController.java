@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,25 +43,26 @@ public class BoardController {
 	@RequestMapping(value = "/list.do")
 	public String list(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {
 		/** EgovPropertyService.sample */
-//		boardVO.setPageUnit(propertiesService.getInt("pageUnit"));
-//		boardVO.setPageSize(propertiesService.getInt("pageSize"));
+		boardVO.setPageUnit(propertiesService.getInt("pageUnit"));
+		boardVO.setPageSize(propertiesService.getInt("pageSize"));
 
 		/** pageing setting */
-//		PaginationInfo paginationInfo = new PaginationInfo();
-//		paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
-//		paginationInfo.setRecordCountPerPage(boardVO.getPageUnit());
-//		paginationInfo.setPageSize(boardVO.getPageSize());
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(boardVO.getPageUnit());
+		paginationInfo.setPageSize(boardVO.getPageSize());
 
-//		boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
-//		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
-//		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+		boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
 		List<?> boardList = boardService.selectBoardList(boardVO);
 		model.addAttribute("list", boardList);
 
 		int totCnt = boardService.selectBoardListTotCnt(boardVO);
-//		paginationInfo.setTotalRecordCount(totCnt);
-//		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("tot", totCnt);
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
 		
 		return "board/list";
 	}

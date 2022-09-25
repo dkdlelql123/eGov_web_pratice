@@ -62,14 +62,11 @@
 
 	</select>
 
-	<select id="selectBoardList" parameterType="boardVO" resultType="egovMap">
-
+	<select id="selectBoardList" parameterType="boardVO" resultType="boardVO"> 
 			SELECT
 				a.IDX as idx
-				  , a.TITLE as title
-				  , a.CONTENTS as contents
-				  , a.COUNT as count
-				  , a.WRITER as writer
+				  , a.TITLE as title 
+				  , a.COUNT as count 
 				  , a.INDATE as indate
 				  , b.NAME as writerName
 			FROM tb_board a 
@@ -77,14 +74,8 @@
 			ON a.WRITER = b.userID
 			WHERE 1=1
 			<if test="searchKeyword != null and searchKeyword != ''">
-		        <choose>
-		            <when test="searchCondition == 0">
-						AND	a.TITLE LIKE '%' || #{searchKeyword} || '%'
-					</when>
-		            <when test="searchCondition == 1">
-						AND	a.TITLE LIKE '%' || #{searchKeyword} || '%'
-					</when>
-				</choose>
+		        AND	a.TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+		        OR a.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
 			ORDER BY a.IDX ASC
 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} -->
@@ -92,17 +83,11 @@
 
 	<select id="selectBoardListTotCnt" parameterType="boardVO" resultType="int">
 			SELECT COUNT(*) totcnt
-			FROM tb_board
-			WHERE 1=1
+			FROM tb_board a 
+			WHERE 1=1 
 			<if test="searchKeyword != null and searchKeyword != ''">
-		        <choose>
-		            <when test="searchCondition == 0">
-						AND TITLE LIKE '%' || #{searchKeyword} || '%'
-					</when>
-		            <when test="searchCondition == 1">
-						AND	TITLE LIKE '%' || #{searchKeyword} || '%'
-					</when>
-				</choose>
+		        AND	a.TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+		        OR a.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
 	</select>
 

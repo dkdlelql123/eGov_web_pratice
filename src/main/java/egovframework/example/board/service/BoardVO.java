@@ -135,4 +135,5 @@ public class BoardVO extends SampleDefaultVO {
 		this.filename = filename;
 	}
 	
+	
 }
