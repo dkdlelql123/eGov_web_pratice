@@ -1,24 +1,27 @@
  
 package egovframework.example.board.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import egovframework.example.board.service.BoardService;
 import egovframework.example.board.service.BoardVO; 
 
 @Controller
-public class BoardController {
+public class BoardController { 
 	
 	/** BoardService */
 	@Resource(name = "boardService")
@@ -67,9 +70,35 @@ public class BoardController {
 	 * @return "board/mgmt"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/mgmt.do")
-	public String mgmt(ModelMap model) throws Exception {
+	@RequestMapping(value = "/mgmt.do", method = RequestMethod.GET)
+	public String mgmt(HttpServletRequest request, ModelMap model) throws Exception { 
+		Date today = new Date();
+		Locale currentLocale = new Locale("KOREAN", "KOREA");
+		String pattern = "yyyy-MM-dd hh:mm:ss"; //hhmmss로 시간,분,초만 뽑기도 가능
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale); 
+		
+		BoardVO boardVO = new BoardVO();
+		boardVO.setIndate(formatter.format(today));
+		boardVO.setCount(0);
+		boardVO.setWriter((String)request.getSession().getAttribute("userId"));
+		boardVO.setWriterName((String)request.getSession().getAttribute("userName"));
+		
+		model.addAttribute("boardVO", boardVO); 
+		
 		return "board/mgmt";
+	}
+	
+	/**
+	 * 등록/수정화면에서 글을 작성, 수정한다. 
+	 * @return "board/view"
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/addMgmt.do") 
+	public String mgmtAdd(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {
+
+		boardService.insertBoard(boardVO);
+		
+		return "redirect:/list.do";
 	}
 	
 	/**

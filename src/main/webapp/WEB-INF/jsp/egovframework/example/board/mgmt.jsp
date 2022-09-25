@@ -16,6 +16,28 @@
 function cancle(){
 	location.href = "<c:url value='/list.do'/>";
 }
+
+function add(){
+	let title = $("#title").val().trim();
+	if(title.length < 1){
+		alert("제목을 입력해주세요.");
+		$("#title").focus();
+		return;
+	}
+	
+	let contents = $("#contents").val().trim();
+	if(contents.length < 1){
+		alert("내용을 입력해주세요.");
+		$("#contents").focus();
+		return;
+	}
+	
+	if( !confirm("작성하시겠습니까?") ){
+		return;
+	}
+	document.boardForm.action = "<c:url value='/addMgmt.do'/>";
+	document.boardForm.submit(); 
+}
 </script>
 </head>
 <body>
@@ -27,29 +49,29 @@ function cancle(){
 			</div>
 			<div class="panel-body">
 			<!-- 게시물 번호, 제목, 내용, 조회수, 작성자, 작성일 -->
-			<form class="form-horizontal" action="" method="post">
+			<form class="form-horizontal" modelAttribute="boardVO" id="boardForm" name="boardForm" action="POST">
 			  <div class="form-group">
 			    <label class="control-label col-sm-2" for="idx">idx:</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="idx" name="idx" placeholder="idx" readonly>
+			      <input type="text" class="form-control" id="idx" name="idx" placeholder="-" readonly>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label class="control-label col-sm-2" for="title">제목:</label>
 			    <div class="col-sm-10">
-			      <input type="password" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" maxlength="30">
+			      <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" maxlength="30">
 			    </div>
 			  </div> 
 			  <div class="form-group">
 			    <label class="control-label col-sm-2" for="writer">작성자:</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="writer" name="writer" placeholder="작성자" maxlength="10">
+			      <input type="text" class="form-control" id="writer" name="writer" placeholder="작성자" maxlength="10" value="${boardVO.writerName}" readonly>
 			    </div>
 			  </div>
 			   <div class="form-group">
 			    <label class="control-label col-sm-2" for="indate">작성일:</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="indate" name="indate" placeholder="작성일" maxlength="11">
+			      <input type="text" class="form-control" id="indate" name="indate" placeholder="작성일" maxlength="11" value="${boardVO.indate}" readonly>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -66,7 +88,7 @@ function cancle(){
 			</form>
 			</div>
 			<div class="panel-footer"> 
-				<button type="button" class="btn btn-success">등록</button>
+				<button type="button" class="btn btn-success" onclick="add();">등록</button>
 				<button type="button" class="btn btn-info">수정</button>
 				<button type="button" class="btn btn-warning" onclick="javascript:cancle();">취소</button>
 			</div>

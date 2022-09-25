@@ -22,7 +22,7 @@ public class BoardVO extends SampleDefaultVO {
 	private String idx;
 	private String title;
 	private String contents;
-	private String count;
+	private int count;
 	private String writer;
 	private String indate;
 	
@@ -79,11 +79,11 @@ public class BoardVO extends SampleDefaultVO {
 		this.contents = contents;
 	}
 
-	public String getCount() {
+	public int getCount() {
 		return count;
 	}
 
-	public void setCount(String count) {
+	public void setCount(int count) {
 		this.count = count;
 	}
 

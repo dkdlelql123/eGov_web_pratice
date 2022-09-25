@@ -12,21 +12,20 @@
 		<result property="writerName" column="writerName"/> 
 	</resultMap>
 
-	<insert id="insertBoard" parameterType="boardVO">
-
-			INSERT INTO tb_board
+	<insert id="insertBoard" parameterType="boardVO">   
+		  INSERT INTO TB_BOARD
 				( IDX
 				  , TITLE
-				  , CONTNETS
+				  , CONTENTS
 				  , COUNT
 				  , WRITER
 				  , INDATE )
-			VALUES ( #{idx}
-				  , #{title}
-				  , #{contents}
+			VALUES ( NULL
+				  , #{title, jdbcType=VARCHAR}
+				  , #{contents, jdbcType=VARCHAR}
 				  , #{count}
-				  , #{writer}
-				  , #{indate} )
+				  , #{writer, jdbcType=VARCHAR}
+				  , SYSDATE() )
 
 	</insert>
 
