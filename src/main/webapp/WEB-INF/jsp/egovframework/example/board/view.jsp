@@ -1,8 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,6 +21,7 @@ function list(){
 }
 </script>
 </head>
+
 <body>
 	<div class="container">
 		<h1>My First Bootstrap Page</h1>
@@ -55,8 +59,14 @@ function list(){
 				  </div>
 				  <div class="form-group">
 				    <label class="text-right col-sm-2" for="indate">contents:</label>
-				    <div class="col-sm-2">
-				      <c:out value="${boardVO.contents}" />
+				    <div class="col-sm-2"> 
+				    	<%
+				    	//뷰 페이지 용
+				    	//치환 변수 선언
+						pageContext.setAttribute("crcn", "\r\n"); 
+						pageContext.setAttribute("br", "<br/>"); 
+						%>
+				      <c:out value="${fn:replace(boardVO.contents, crcn, br)}" escapeXml="false" />
 				    </div>
 				  </div>
 				 
