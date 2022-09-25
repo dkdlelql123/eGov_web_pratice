@@ -68,26 +68,26 @@
 			SELECT
 				a.IDX as idx
 				  , a.TITLE as title
-				  , a.CONTNETS as contents
+				  , a.CONTENTS as contents
 				  , a.COUNT as count
 				  , a.WRITER as writer
 				  , a.INDATE as indate
 				  , b.NAME as writerName
 			FROM tb_board a 
 			LEFT JOIN tb_user b
-			ON a.WRITER = b.USERID
+			ON a.WRITER = b.userID
 			WHERE 1=1
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">
-						AND	ID LIKE '%' || #{searchKeyword} || '%'
+						AND	a.TITLE LIKE '%' || #{searchKeyword} || '%'
 					</when>
 		            <when test="searchCondition == 1">
-						AND	NAME LIKE '%' || #{searchKeyword} || '%'
+						AND	a.TITLE LIKE '%' || #{searchKeyword} || '%'
 					</when>
 				</choose>
 			</if>
-			ORDER BY ID ASC
+			ORDER BY a.IDX ASC
 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} -->
 	</select>
 
@@ -98,10 +98,10 @@
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">
-						AND ID LIKE '%' || #{searchKeyword} || '%'
+						AND TITLE LIKE '%' || #{searchKeyword} || '%'
 					</when>
 		            <when test="searchCondition == 1">
-						AND	NAME LIKE '%' || #{searchKeyword} || '%'
+						AND	TITLE LIKE '%' || #{searchKeyword} || '%'
 					</when>
 				</choose>
 			</if>

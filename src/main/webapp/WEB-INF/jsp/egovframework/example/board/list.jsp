@@ -105,21 +105,21 @@ function logout(){
 				      <tr>
 				        <th>번호</th>
 				        <th>제목</th>
-				        <th>내용</th>
 				        <th>조회수</th>
 				        <th>작성자</th>
 				        <th>작성일</th>
 				      </tr>
 				    </thead>
 				    <tbody>
+				    <c:forEach var="board" items="${list}">
 				      <tr>
-				        <td>John</td>
-				        <td><a href="javascript:view();">Doe</a></td>
-				        <td>john@example.com</td>
-				        <td>John</td>
-				        <td>Doe</td>
-				        <td>john@example.com</td>
+				        <td><c:out value="${board.idx}" /></td>
+				        <td><a href="javascript:view();"><c:out value="${board.title}" /></a></td> 
+				        <td><c:out value="${board.count}" /></td>
+				        <td><c:out value="${board.writer}" /></td>
+				        <td><c:out value="${board.indate}" /></td>
 				      </tr> 
+				      </c:forEach>
 				    </tbody>
 				  </table>
 			</div>

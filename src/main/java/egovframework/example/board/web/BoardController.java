@@ -1,25 +1,32 @@
  
 package egovframework.example.board.web;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.example.board.service.BoardService;
-import egovframework.example.board.service.BoardVO;
-import egovframework.example.sample.service.EgovSampleService;
+import egovframework.example.board.service.BoardVO; 
 
 @Controller
 public class BoardController {
 	
-	/** EgovSampleService */
+	/** BoardService */
 	@Resource(name = "boardService")
 	private BoardService boardService;
+	
+	/** EgovPropertyService */
+	@Resource(name = "propertiesService")
+	protected EgovPropertyService propertiesService;
 
 	
 	/**
@@ -30,7 +37,28 @@ public class BoardController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/list.do")
-	public String list(ModelMap model) throws Exception {
+	public String list(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {
+		/** EgovPropertyService.sample */
+//		boardVO.setPageUnit(propertiesService.getInt("pageUnit"));
+//		boardVO.setPageSize(propertiesService.getInt("pageSize"));
+
+		/** pageing setting */
+//		PaginationInfo paginationInfo = new PaginationInfo();
+//		paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
+//		paginationInfo.setRecordCountPerPage(boardVO.getPageUnit());
+//		paginationInfo.setPageSize(boardVO.getPageSize());
+
+//		boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+//		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
+//		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+
+		List<?> boardList = boardService.selectBoardList(boardVO);
+		model.addAttribute("list", boardList);
+
+		int totCnt = boardService.selectBoardListTotCnt(boardVO);
+//		paginationInfo.setTotalRecordCount(totCnt);
+//		model.addAttribute("paginationInfo", paginationInfo);
+		
 		return "board/list";
 	}
 	
@@ -76,9 +104,7 @@ public class BoardController {
 		BoardVO boardvo = new BoardVO();
 		boardvo.setUserID(userId);
 		boardvo.setUserPw(userPw);
-		String name = boardService.selectLoginCheck(boardvo);
-		System.out.println(userId);
-		System.out.println(userPw);
+		String name = boardService.selectLoginCheck(boardvo); 
 		
 		if(name != null && !"".equals(name)) { 
 			request.getSession().setAttribute("userId", userId);

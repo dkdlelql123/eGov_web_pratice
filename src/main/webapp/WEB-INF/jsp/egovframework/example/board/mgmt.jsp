@@ -31,7 +31,7 @@ function cancle(){
 			  <div class="form-group">
 			    <label class="control-label col-sm-2" for="idx">idx:</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="idx" name="idx" placeholder="idx">
+			      <input type="text" class="form-control" id="idx" name="idx" placeholder="idx" readonly>
 			    </div>
 			  </div>
 			  <div class="form-group">
