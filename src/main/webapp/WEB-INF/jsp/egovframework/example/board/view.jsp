@@ -19,6 +19,31 @@
 function list(){
 	location.href = "<c:url value='/list.do'/>";
 }
+
+let replyForm__ckeck = false;
+function replyFormCheck(form){
+	if( replyForm__ckeck ){
+		alert("처리중입니다. 잠시만 기다려주세요.");
+		return;
+	} 
+	
+	if(form.writer.value.trim().length < 1 ){
+		alert("이름을 작성해주세요.");
+		form.writer.focus();
+		return;
+	}
+	
+	if(form.reply.value.trim().length < 1 ){
+		alert("내용을 작성해주세요.");
+		form.reply.focus();
+		return;
+	} 
+	
+	form.submit();
+	replyForm__ckeck = true;
+
+	console.log("hi")
+}
 </script>
 </head>
 
@@ -79,16 +104,25 @@ function list(){
 			</div>
 		</div>
 		
-		<div class="well well-sm">댓글</div>
+		<!-- 댓글 목록 -->
+		<div class="well well-sm">
+			
+		</div>
+		
+		<!-- 댓글 작성 -->
 		<div class="well well-lg">
-			<form class="form-horizontal" action="" method="post">
+			<form class="form-horizontal" method="post" name="replyForm" id="replyForm" 
+			onsubmit="replyFormCheck(this); return false;"
+			action="<c:url value='/addReply.do'/>"
+			>
+		    <input type="hidden" id="relId" name="relId" placeholder="relId" value="${boardVO.idx}">
 				<div class="form-group">
-				  <label for="writer">writer:</label>
-				  <input type="writer" class="form-control" id="writer" name="writer">
+				  <label for="writer">작성자:</label>
+				  <input type="writer" class="form-control" id="writer" name="writer" placeholder="작성자이름" >
 				</div>
 				<div class="form-group">
 				  <label for="reply">내용:</label>
-				  <textarea class="form-control" rows="3" id="reply" name="reply" maxlength="200"></textarea>
+				  <textarea class="form-control" rows="3" id="reply" name="reply" maxlength="200" placeholder="댓글 내용을 작성해주세요."></textarea>
 				</div> 
 				<button type="submit" class="btn btn-default">작성</button>
 			</form>

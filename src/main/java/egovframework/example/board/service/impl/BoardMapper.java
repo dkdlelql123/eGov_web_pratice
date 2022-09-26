@@ -79,5 +79,13 @@ public interface BoardMapper {
 	 * @exception
 	 */
 	String selectLoginCheck(BoardVO vo);
+	
+	/**
+	 * 댓글을 등록한다.
+	 * @param vo - 등록할 정보가 담긴 BoardVO
+	 * @return 등록 결과
+	 * @exception Exception
+	 */
+	void insertReply(BoardVO vo) throws Exception;
 
 }

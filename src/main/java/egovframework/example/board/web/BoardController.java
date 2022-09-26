@@ -68,7 +68,8 @@ public class BoardController {
 	}
 	
 	/**
-	 * 등록/수정화면에서 글을 작성, 수정한다. 
+	 * 등록/수정 화면 
+	 * @param boardVO - 등록할 정보가 담긴 VO - 현재시간, 등록시 조회수 : 0, 아이디, 이름
 	 * @return "board/mgmt"
 	 * @exception Exception
 	 */
@@ -92,6 +93,7 @@ public class BoardController {
 	
 	/**
 	 * 등록/수정화면에서 글을 작성, 수정한다. 
+	 * @param boardVO - 등록할 정보가 담긴 VO 
 	 * @return "board/list"
 	 * @exception Exception
 	 */
@@ -109,7 +111,7 @@ public class BoardController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/view.do")
-	public String view(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception { 
+	public String view(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
 		
 		BoardVO findBoard = boardService.selectBoard(boardVO);
 		System.out.println(findBoard);
@@ -161,5 +163,30 @@ public class BoardController {
 		request.getSession().removeAttribute("userId");
 		request.getSession().removeAttribute("userName");
 		return "redirect:/list.do";
+	}
+	 
+	/**
+	 * 댓글 작성
+	 * @param boardVO - 등록할 정보가 담긴 VO
+	 * @return "board/view"
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/addReply.do")
+	public String addReply(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception { 
+		System.out.println("============================"); 
+		
+		Date today = new Date();
+		Locale currentLocale = new Locale("KOREAN", "KOREA");
+		String pattern = "yyyy-MM-dd hh:mm:ss"; //hhmmss로 시간,분,초만 뽑기도 가능
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale); 
+		
+		boardVO.setIndate(formatter.format(today)); 
+		
+		System.out.println(boardVO);
+		System.out.println("============================"); 
+		
+		boardService.insertReply(boardVO);
+		
+		return "redirect:/";
 	}
 }

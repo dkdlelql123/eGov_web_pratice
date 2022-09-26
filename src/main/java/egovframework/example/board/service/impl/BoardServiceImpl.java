@@ -68,7 +68,7 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	public String insertBoard(BoardVO vo) throws Exception {
+	public int insertBoard(BoardVO vo) throws Exception {
 		LOGGER.debug(vo.toString()); 
 
 		boardDAO.insertBoard(vo);
@@ -135,6 +135,18 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
  
 	public String selectLoginCheck(BoardVO VO) {
 		return boardDAO.selectLoginCheck(VO);
+	}
+	
+	/**
+	 * 댓글을 등록한다.
+	 * @param vo - 등록할 정보가 담긴 BoardVO
+	 * @return 등록 결과
+	 * @exception Exception
+	 */
+	public void insertReply(BoardVO vo) throws Exception {
+		LOGGER.debug(vo.toString()); 
+
+		boardDAO.insertReply(vo); 
 	}
 
 }

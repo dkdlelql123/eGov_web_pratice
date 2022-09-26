@@ -3,7 +3,7 @@ USE `egov03`;
 
 # 사용자 테이블 생성(아이디, 비밀번호, 이름)
 CREATE TABLE tb_user(
-userID VARCHAR(40) PRIMARY KEY,
+userId VARCHAR(40) PRIMARY KEY,
 userPw VARCHAR(60) NOT NULL,
 `name` VARCHAR(20) NOT NULL
 );
@@ -42,14 +42,18 @@ writer VARCHAR(30) NOT NULL,
 indate DATETIME NOT NULL
 );
 
-# 게시판 댓글 테이블 생성 (게시물 아이디, 순번, 내용, 작성자, 작성일)
+# 게시판 댓글 테이블 생성 (게시물 아이디, 게시물 번호(fk), 내용, 작성자, 작성일)
 CREATE TABLE tb_reply(
 idx INT(10) AUTO_INCREMENT,
-seq INT(10) COMMENT '순번',
+relId INT(10) NOT NULL,
 reply VARCHAR(1000) NOT NULL,
 writer VARCHAR(30) NOT NULL,
 indate DATETIME NOT NULL,
-PRIMARY KEY (idx, seq)
+PRIMARY KEY (idx),
+CONSTRAINT boardFK
+	FOREIGN KEY (relId)
+	REFERENCES tb_board (idx)
+	ON DELETE CASCADE
 );
 
 # 파일 테이블 생성 (게시물 아이디, 순번, 파일명, 등록자, 등록일)

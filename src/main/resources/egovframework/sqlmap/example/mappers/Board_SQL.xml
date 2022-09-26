@@ -94,5 +94,19 @@
 			AND	userPw = #{userPw}
 	</select>
 
+	<insert id="insertReply" parameterType="boardVO">   
+		  INSERT INTO TB_REPLY
+				( idx
+				  , relId
+				  , reply
+				  , writer
+				  , indate )
+			VALUES ( NULL
+				  , #{relId}
+				  , #{reply}
+				  , #{writer}
+				  , SYSDATE() )
+
+	</insert>
 
 </mapper>

@@ -41,7 +41,7 @@ public interface BoardService {
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	String insertBoard(BoardVO vo) throws Exception;
+	int insertBoard(BoardVO vo) throws Exception;
 
 	/**
 	 * 글을 수정한다.
@@ -90,5 +90,14 @@ public interface BoardService {
 	 * @exception
 	 */
 	String selectLoginCheck(BoardVO boardvo);
+	
+
+	/**
+	 * 댓글을 등록한다.
+	 * @param vo - 등록할 정보가 담긴 SampleVO
+	 * @return 등록 결과
+	 * @exception Exception
+	 */
+	void insertReply(BoardVO vo) throws Exception;
 
 }
