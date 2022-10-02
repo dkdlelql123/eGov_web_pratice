@@ -148,5 +148,15 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 
 		boardDAO.insertReply(vo); 
 	}
+	
+	/**
+	 * 댓글 목록을 조회한다.
+	 * @param relId - 조회할 정보가 담긴 게시판 relId
+	 * @return 댓글 목록
+	 * @exception Exception
+	 */
+	public List<BoardVO> selectReplyList(int relId) throws Exception {
+		return boardDAO.selectReplyList(relId);
+	}
 
 }

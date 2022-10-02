@@ -26,7 +26,7 @@ public class BoardController {
 	
 	/** BoardService */
 	@Resource(name = "boardService")
-	private BoardService boardService;
+	private BoardService boardService; 
 	
 	/** EgovPropertyService */
 	@Resource(name = "propertiesService")
@@ -81,29 +81,32 @@ public class BoardController {
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale); 
 		
 		BoardVO boardVO = new BoardVO();
-		boardVO.setIndate(formatter.format(today));
-		boardVO.setCount(0);
+		boardVO.setIndate(formatter.format(today)); 
 		boardVO.setWriter((String)request.getSession().getAttribute("userId"));
 		boardVO.setWriterName((String)request.getSession().getAttribute("userName"));
 		
 		model.addAttribute("boardVO", boardVO); 
 		
+		System.out.println("mgmt.do");
 		return "board/mgmt";
 	}
 	
+	
 	/**
-	 * 등록/수정화면에서 글을 작성, 수정한다. 
-	 * @param boardVO - 등록할 정보가 담긴 VO 
-	 * @return "board/list"
+	 * 댓글 작성
+	 * @param boardVO - 등록할 정보가 담긴 VO
+	 * @return "board/view"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/addMgmt.do") 
-	public String mgmtAdd(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {
-
+	@RequestMapping(value = "/mgmtAdd.do")  
+	public String addBoard(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
+		
+		System.out.println("mgmtAdd.do"); 
 		boardService.insertBoard(boardVO);
 		
-		return "redirect:/list.do";
+		return "redirect:/";
 	}
+	
 	
 	/**
 	 * 상세화면에서 글 내용을 조회한다. 글 수정, 삭제를 할 수 있다.
@@ -116,6 +119,12 @@ public class BoardController {
 		BoardVO findBoard = boardService.selectBoard(boardVO);
 		System.out.println(findBoard);
 		model.addAttribute("boardVO", findBoard);
+		
+		int idx = findBoard.getIdx();
+		
+		List<BoardVO> replyList = boardService.selectReplyList(idx);
+		model.addAttribute("replyList", replyList);
+		
 		return "board/view";
 	}
 	
@@ -172,21 +181,17 @@ public class BoardController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/addReply.do")
-	public String addReply(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception { 
-		System.out.println("============================"); 
+	public String addReply(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
 		
 		Date today = new Date();
 		Locale currentLocale = new Locale("KOREAN", "KOREA");
 		String pattern = "yyyy-MM-dd hh:mm:ss"; //hhmmss로 시간,분,초만 뽑기도 가능
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale); 
 		
-		boardVO.setIndate(formatter.format(today)); 
-		
-		System.out.println(boardVO);
-		System.out.println("============================"); 
+		boardVO.setIndate(formatter.format(today));  
 		
 		boardService.insertReply(boardVO);
 		
-		return "redirect:/";
+		return "redirect:/view.do?idx=" + boardVO.getRelId();
 	}
 }

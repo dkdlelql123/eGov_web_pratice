@@ -100,4 +100,12 @@ public interface BoardService {
 	 */
 	void insertReply(BoardVO vo) throws Exception;
 
+	/**
+	 * 댓글 목록을 조회한다.
+	 * @param relId - 조회할 정보가 담긴 게시판 relId
+	 * @return 댓글 목록
+	 * @exception Exception
+	 */
+	List<BoardVO> selectReplyList(int relId) throws Exception;;
+
 }

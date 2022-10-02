@@ -97,16 +97,11 @@ function replyFormCheck(form){
 				 
 				</form>
 			</div>
-			<div class="panel-footer">  
+			<div class="panel-footer text-right">  
 				<button type="button" class="btn btn-info">수정</button>  
 				<button type="button" class="btn btn-danger">삭제</button>
 				<button type="button" class="btn btn-default" onclick="javascript:list();">목록</button>  
 			</div>
-		</div>
-		
-		<!-- 댓글 목록 -->
-		<div class="well well-sm">
-			
 		</div>
 		
 		<!-- 댓글 작성 -->
@@ -124,9 +119,27 @@ function replyFormCheck(form){
 				  <label for="reply">내용:</label>
 				  <textarea class="form-control" rows="3" id="reply" name="reply" maxlength="200" placeholder="댓글 내용을 작성해주세요."></textarea>
 				</div> 
-				<button type="submit" class="btn btn-default">작성</button>
+				<div class="text-right">
+					<button type="submit" class="btn btn-default">작성</button>
+				</div>	
 			</form>
 		</div>
+		
+		
+		<!-- 댓글 목록 -->
+		<div class="well well-sm">
+			<div class="grid gap-2">
+			<c:forEach var="reply" items="${replyList}">
+				<div>
+				<span style="color:#888">${reply.writer} | ${reply.indate}</span>
+				<p>${reply.reply}</p>
+				</div>
+			</c:forEach>
+			<c:if test="${empty replyList}">
+			등록된 댓글이 없습니다.
+			</c:if>
+			</div>	
+		</div> 
 	</div>
 </body>
 </html>

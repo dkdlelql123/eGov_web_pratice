@@ -34,8 +34,8 @@ function add(){
 	
 	if( !confirm("작성하시겠습니까?") ){
 		return;
-	}
-	document.boardForm.action = "<c:url value='/addMgmt.do'/>";
+	}  
+	document.boardForm.action="<c:url value='/mgmtAdd.do'/>"; 
 	document.boardForm.submit(); 
 }
 </script>
@@ -49,13 +49,15 @@ function add(){
 			</div>
 			<div class="panel-body">
 			<!-- 게시물 번호, 제목, 내용, 조회수, 작성자, 작성일 -->
-			<form class="form-horizontal" modelAttribute="boardVO" id="boardForm" name="boardForm" action="POST">
-			  <div class="form-group">
+			<form class="form-horizontal" id="boardForm" name="boardForm" 
+			method="POST"
+			>
+			 <!--  <div class="form-group">
 			    <label class="control-label col-sm-2" for="idx">idx:</label>
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control" id="idx" name="idx" placeholder="-" readonly>
 			    </div>
-			  </div>
+			  </div> -->
 			  <div class="form-group">
 			    <label class="control-label col-sm-2" for="title">제목:</label>
 			    <div class="col-sm-10">
@@ -83,7 +85,7 @@ function add(){
 			</form>
 			</div>
 			<div class="panel-footer"> 
-				<button type="button" class="btn btn-success" onclick="add();">등록</button>
+				<button type="button" class="btn btn-success" onclick="javascript:add();">등록</button>
 				<button type="button" class="btn btn-info">수정</button>
 				<button type="button" class="btn btn-warning" onclick="javascript:cancle();">취소</button>
 			</div>

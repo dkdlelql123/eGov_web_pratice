@@ -145,7 +145,7 @@
         
 	</dependencies>
 
-	<build>
+	<build>   
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/target</directory>
         <finalName>${artifactId}-${version}</finalName>
@@ -161,6 +161,9 @@
 	                    <systemProperties>
 	                        <JAVA_OPTS>-Xms256m -Xmx768m -XX:MaxPermSize=256m</JAVA_OPTS>
 	                    </systemProperties>
+	                    <!-- <url>https://blog.yeji.967.be/manager/text</url>
+						<server>blog.yeji.967.be__manager_text</server>
+						<path>/ROOT##4</path> -->
 	                </configuration>
 	            </plugin>
                 <plugin>

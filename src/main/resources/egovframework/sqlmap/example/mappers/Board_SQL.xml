@@ -13,18 +13,18 @@
 	</resultMap>
 
 	<insert id="insertBoard" parameterType="boardVO">   
-		  INSERT INTO TB_BOARD
-				( IDX
-				  , TITLE
-				  , CONTENTS
-				  , COUNT
-				  , WRITER
-				  , INDATE )
-			VALUES ( NULL
-				  , #{title, jdbcType=VARCHAR}
-				  , #{contents, jdbcType=VARCHAR}
+		  INSERT INTO tb_board
+				( idx
+				  , title	
+				  , contents
+				  , count
+				  , writer
+				  , indate )
+			VALUES ( null
+				  , #{title}
+				  , #{contents}
 				  , #{count}
-				  , #{writer, jdbcType=VARCHAR}
+				  , #{writer}
 				  , SYSDATE() )
 
 	</insert>
@@ -108,5 +108,12 @@
 				  , SYSDATE() )
 
 	</insert>
+	
+	<select id="selectReplyList" parameterType="int" resultType="boardVO"> 
+		SELECT *
+		FROM tb_reply  
+		WHERE relID = #{relId}
+		ORDER BY idx DESC 
+	</select>
 
 </mapper>
