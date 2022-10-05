@@ -53,7 +53,7 @@ function replyFormCheck(form){
 		<div class="panel panel-default">
 		
 			<div class="panel-heading">
-				<p>안녕하세요</p>
+				<p><c:out value="${sessionScope.userName}"/> 안녕하세요 :)</p>
 			</div>
 			<div class="panel-body">
 			<!-- 게시물 번호, 제목, 내용, 조회수, 작성자, 작성일 -->
@@ -98,8 +98,10 @@ function replyFormCheck(form){
 				</form>
 			</div>
 			<div class="panel-footer text-right">  
-				<button type="button" class="btn btn-info">수정</button>  
-				<button type="button" class="btn btn-danger">삭제</button>
+				<c:if test="${sessionScope.userName != null && sessionScope.userName == boardVO.writerName}">
+					<button type="button" class="btn btn-info">수정</button>  
+					<button type="button" class="btn btn-danger">삭제</button>
+				</c:if>
 				<button type="button" class="btn btn-default" onclick="javascript:list();">목록</button>  
 			</div>
 		</div>

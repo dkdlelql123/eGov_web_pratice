@@ -49,9 +49,7 @@ function add(){
 			</div>
 			<div class="panel-body">
 			<!-- 게시물 번호, 제목, 내용, 조회수, 작성자, 작성일 -->
-			<form class="form-horizontal" id="boardForm" name="boardForm" 
-			method="POST"
-			>
+			<form class="form-horizontal" id="boardForm" name="boardForm" method="POST" >
 			 <!--  <div class="form-group">
 			    <label class="control-label col-sm-2" for="idx">idx:</label>
 			    <div class="col-sm-10">
