@@ -68,6 +68,26 @@ public class BoardController {
 	}
 	
 	/**
+	 * 상세화면에서 글 내용을 조회한다. 글 수정, 삭제를 할 수 있다.
+	 * @return "board/view"
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/view.do")
+	public String view(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
+		
+		BoardVO findBoard = boardService.selectBoard(boardVO);
+		System.out.println(findBoard);
+		model.addAttribute("boardVO", findBoard);
+		
+		int idx = findBoard.getIdx();
+		
+		List<BoardVO> replyList = boardService.selectReplyList(idx);
+		model.addAttribute("replyList", replyList);
+		
+		return "board/view";
+	}
+	
+	/**
 	 * 등록 화면 
 	 * @param boardVO - 등록할 정보가 담긴 VO - 현재시간, 등록시 조회수 : 0, 아이디, 이름
 	 * @return "board/mgmt"
@@ -95,7 +115,7 @@ public class BoardController {
 	/**
 	 * 게시글 작성
 	 * @param boardVO - 등록할 정보가 담긴 VO
-	 * @return "board/view"
+	 * @return "board/list"
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/mgmtAdd.do")  
@@ -127,7 +147,7 @@ public class BoardController {
 	/**
 	 * 게시글 수정
 	 * @param boardVO - 등록할 정보가 담긴 VO
-	 * @return "board/view"
+	 * @return "board/list"
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/doModify.do")  
@@ -139,26 +159,21 @@ public class BoardController {
 		return "redirect:/";
 	}
 	
-	
 	/**
-	 * 상세화면에서 글 내용을 조회한다. 글 수정, 삭제를 할 수 있다.
-	 * @return "board/view"
+	 * 게시글 삭제
+	 * @param boardVO - 삭제할 정보가 담긴 VO
+	 * @return "board/list"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/view.do")
-	public String view(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
+	@RequestMapping(value = "/doDelete.do")  
+	public String deleteBoard(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
 		
-		BoardVO findBoard = boardService.selectBoard(boardVO);
-		System.out.println(findBoard);
-		model.addAttribute("boardVO", findBoard);
+		System.out.println("do delete"); 
+		boardService.deleteBoard(boardVO);
 		
-		int idx = findBoard.getIdx();
-		
-		List<BoardVO> replyList = boardService.selectReplyList(idx);
-		model.addAttribute("replyList", replyList);
-		
-		return "board/view";
+		return "redirect:/";
 	}
+	
 	
 	/**
 	 * 로그인 기능

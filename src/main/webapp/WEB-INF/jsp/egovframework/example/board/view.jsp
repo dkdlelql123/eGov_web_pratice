@@ -46,6 +46,14 @@ function replyFormCheck(form){
 function mod(){
 	location.href = "<c:url value='/modify.do?idx=${boardVO.idx}' />";
 }
+
+function del(){
+	if( !confirm("삭제하시겠습니까? ")){
+		return;
+	}
+	document.boardForm.action = "<c:url value='/doDelete.do' />";
+	document.boardForm.submit();
+}
 </script>
 </head>
 
@@ -59,7 +67,8 @@ function mod(){
 			</div>
 			<div class="panel-body">
 			<!-- 게시물 번호, 제목, 내용, 조회수, 작성자, 작성일 -->
-				<form class="form-horizontal" action="" method="post">
+				<form class="form-horizontal" id="boardForm" name="boardForm">
+				<input type="hidden" value="${boardVO.idx}" name="idx" id="idx" />
 				  <div class="form-group">
 				    <label class="text-right col-sm-2" for="idx">idx:</label>
 				    <div class="col-sm-10">
@@ -102,7 +111,7 @@ function mod(){
 			<div class="panel-footer text-right">  
 				<c:if test="${sessionScope.userName != null && sessionScope.userName == boardVO.writerName}">
 					<button type="button" class="btn btn-info" onclick="javascript:mod();">수정</button>  
-					<button type="button" class="btn btn-danger">삭제</button>
+					<button type="button" class="btn btn-danger" onclick="javascript:del();" >삭제</button>
 				</c:if>
 				<button type="button" class="btn btn-default" onclick="javascript:list();">목록</button>  
 			</div>

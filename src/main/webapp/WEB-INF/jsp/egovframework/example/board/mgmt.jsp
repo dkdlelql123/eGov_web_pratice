@@ -62,6 +62,8 @@ function mod(){
 	document.boardForm.action = "<c:url value='/doModify.do' />";
 	document.boardForm.submit();
 }
+
+
 </script>
 </head>
 <body>
