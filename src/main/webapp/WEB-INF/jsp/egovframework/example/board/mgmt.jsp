@@ -34,9 +34,33 @@ function add(){
 	
 	if( !confirm("작성하시겠습니까?") ){
 		return;
-	}  
+	}
+	
 	document.boardForm.action="<c:url value='/mgmtAdd.do'/>"; 
 	document.boardForm.submit(); 
+}
+
+function mod(){
+	let title = $("#title").val().trim();
+	if(title.length < 1){
+		alert("제목을 입력해주세요.");
+		$("#title").focus();
+		return;
+	}
+	
+	let contents = $("#contents").val().trim();
+	if(contents.length < 1){
+		alert("내용을 입력해주세요.");
+		$("#contents").focus();
+		return;
+	}
+	
+	if( !confirm("수정하시겠습니까?") ){
+		return;
+	} 
+	 
+	document.boardForm.action = "<c:url value='/doModify.do' />";
+	document.boardForm.submit();
 }
 </script>
 </head>
@@ -45,21 +69,24 @@ function add(){
 		<h1>My First Bootstrap Page</h1>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<p>안녕하세요</p>
+				<p><c:out value="${sessionScope.userName}"/> 안녕하세요 :)</p>
 			</div>
 			<div class="panel-body">
 			<!-- 게시물 번호, 제목, 내용, 조회수, 작성자, 작성일 -->
 			<form class="form-horizontal" id="boardForm" name="boardForm" method="POST" >
-			 <!--  <div class="form-group">
-			    <label class="control-label col-sm-2" for="idx">idx:</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="idx" name="idx" placeholder="-" readonly>
-			    </div>
-			  </div> -->
+			 <c:if test="${boardVO.idx > 0}">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="idx">idx:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="idx" name="idx" value="${boardVO.idx}" 
+							placeholder="-" readonly>
+					</div>
+				</div>
+			</c:if>
 			  <div class="form-group">
 			    <label class="control-label col-sm-2" for="title">제목:</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" maxlength="30">
+			      <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${boardVO.title}"  maxlength="30" />
 			    </div>
 			  </div> 
 			  <div class="form-group">
@@ -77,14 +104,20 @@ function add(){
 			  <div class="form-group">
 				  <label class="control-label col-sm-2" for="contents">contents:</label>
 				  <div class="col-sm-10">
-				  	<textarea class="form-control" rows="5" id="contents" name="contents" maxlength="500"></textarea>
+				  	<textarea class="form-control" rows="5" id="contents" name="contents" maxlength="500">${boardVO.contents}</textarea>
 				  </div>
 			  </div> 
 			</form>
 			</div>
-			<div class="panel-footer"> 
-				<button type="button" class="btn btn-success" onclick="javascript:add();">등록</button>
-				<button type="button" class="btn btn-info">수정</button>
+			<div class="panel-footer">  
+				<c:choose>
+					<c:when test="${boardVO.idx > 0}">
+						<button type="button" class="btn btn-info" onclick="javascript:mod();">수정</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-success" onclick="javascript:add();">등록</button>			
+					</c:otherwise>
+				</c:choose>
 				<button type="button" class="btn btn-warning" onclick="javascript:cancle();">취소</button>
 			</div>
 		</div>

@@ -40,9 +40,11 @@ function replyFormCheck(form){
 	} 
 	
 	form.submit();
-	replyForm__ckeck = true;
+	replyForm__ckeck = true; 
+}
 
-	console.log("hi")
+function mod(){
+	location.href = "<c:url value='/modify.do?idx=${boardVO.idx}' />";
 }
 </script>
 </head>
@@ -99,7 +101,7 @@ function replyFormCheck(form){
 			</div>
 			<div class="panel-footer text-right">  
 				<c:if test="${sessionScope.userName != null && sessionScope.userName == boardVO.writerName}">
-					<button type="button" class="btn btn-info">수정</button>  
+					<button type="button" class="btn btn-info" onclick="javascript:mod();">수정</button>  
 					<button type="button" class="btn btn-danger">삭제</button>
 				</c:if>
 				<button type="button" class="btn btn-default" onclick="javascript:list();">목록</button>  

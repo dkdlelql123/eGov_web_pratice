@@ -68,13 +68,14 @@ public class BoardController {
 	}
 	
 	/**
-	 * 등록/수정 화면 
+	 * 등록 화면 
 	 * @param boardVO - 등록할 정보가 담긴 VO - 현재시간, 등록시 조회수 : 0, 아이디, 이름
 	 * @return "board/mgmt"
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/mgmt.do", method = RequestMethod.GET)
-	public String mgmt(HttpServletRequest request, ModelMap model) throws Exception { 
+	public String mgmt( HttpServletRequest request, ModelMap model) throws Exception { 
+		
 		Date today = new Date();
 		Locale currentLocale = new Locale("KOREAN", "KOREA");
 		String pattern = "yyyy-MM-dd hh:mm:ss"; //hhmmss로 시간,분,초만 뽑기도 가능
@@ -91,9 +92,8 @@ public class BoardController {
 		return "board/mgmt";
 	}
 	
-	
 	/**
-	 * 댓글 작성
+	 * 게시글 작성
 	 * @param boardVO - 등록할 정보가 담긴 VO
 	 * @return "board/view"
 	 * @exception Exception
@@ -103,6 +103,38 @@ public class BoardController {
 		
 		System.out.println("mgmtAdd.do"); 
 		boardService.insertBoard(boardVO);
+		
+		return "redirect:/";
+	} 
+	
+	/**
+	 * 수정 화면 
+	 * @param boardVO - 수정할 정보가 담긴 VO - idx로 정보 찾기
+	 * @return "board/mgmt"
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/modify.do", method = RequestMethod.GET)
+	public String modify(@ModelAttribute("boardVO") BoardVO boardVO, HttpServletRequest request, ModelMap model) throws Exception { 
+		
+		boardVO = boardService.selectBoard(boardVO);
+		model.addAttribute("boardVO", boardVO); 
+		
+		System.out.println("mgmt.do");
+		return "board/mgmt";
+	}
+	
+	
+	/**
+	 * 게시글 수정
+	 * @param boardVO - 등록할 정보가 담긴 VO
+	 * @return "board/view"
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/doModify.do")  
+	public String modifyBoard(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
+		
+		System.out.println("do modify"); 
+		boardService.updateBoard(boardVO);
 		
 		return "redirect:/";
 	}
