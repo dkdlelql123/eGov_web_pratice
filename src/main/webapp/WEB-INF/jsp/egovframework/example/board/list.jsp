@@ -61,6 +61,11 @@ function logout(){
 	location.href = "<c:url value='/logout.do'/>";
 }
 
+//페이지
+function fn_egov_link_page(pageNo){
+	location.href = "<c:url value='/list.do'/>?pageIndex="+pageNo; 
+}
+
 </script>
 </head>
 <body>
@@ -128,7 +133,13 @@ function logout(){
 				      </c:forEach>
 				    </tbody>
 				  </table>
+				  
+				<div id="paging">
+	        		<ui:pagination paginationInfo = "${paginationInfo}" type="image" jsFunction="fn_egov_link_page" />
+	        		<%-- <form:hidden path="pageIndex" /> --%>
+	        	</div>
 			</div>
+        	
 			<div class="panel-footer"> 
 				<c:if test="${sessionScope.userName != null && sessionScope.userId != null}">
 				<button type="button" class="btn btn-success" onclick="javascript:add();">등록</button>

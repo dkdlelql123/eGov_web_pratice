@@ -50,6 +50,9 @@ public class SampleDefaultVO implements Serializable {
 
 	/** 검색사용여부 */
 	private String searchUseYn = "";
+	
+	
+	
 
 	/** 현재페이지 */
 	private int pageIndex = 1;
@@ -66,8 +69,10 @@ public class SampleDefaultVO implements Serializable {
 	/** lastIndex */
 	private int lastIndex = 1;
 
-	/** recordCountPerPage */
+	/** recordCountPerPage 현재페이지에서 볼 수 있는 row 수 */
 	private int recordCountPerPage = 10;
+	
+	
 
 	public int getFirstIndex() {
 		return firstIndex;

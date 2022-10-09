@@ -81,7 +81,7 @@
 		        OR a.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
 			ORDER BY a.IDX DESC
-			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} -->
+			LIMIT #{firstIndex}, #{recordCountPerPage} 
 	</select>
 
 	<select id="selectBoardListTotCnt" parameterType="boardVO" resultType="int">
