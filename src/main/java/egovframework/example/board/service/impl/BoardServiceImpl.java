@@ -85,6 +85,17 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 	public void updateBoard(BoardVO vo) throws Exception {
 		boardDAO.updateBoard(vo);
 	}
+	
+	/**
+	 * 글을 조회수를 증가시킨다.
+	 * @param vo - 조회수 증가할 정보가 담긴 BoardVO
+	 * @return void형
+	 * @exception Exception
+	 */
+	@Override
+	public void updateBoardCount(BoardVO vo) throws Exception {
+		boardDAO.updateBoardCount(vo);
+	}
 
 	/**
 	 * 글을 삭제한다.

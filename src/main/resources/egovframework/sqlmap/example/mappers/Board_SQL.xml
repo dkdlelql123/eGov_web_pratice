@@ -36,6 +36,13 @@
 			WHERE IDX=#{idx}
 
 	</update>
+	
+	<update id="updateBoardCount">
+			UPDATE tb_board
+			SET COUNT = COUNT + 1
+			WHERE IDX=#{idx}
+
+	</update>
 
 	<delete id="deleteBoard"> 
 			DELETE FROM tb_board

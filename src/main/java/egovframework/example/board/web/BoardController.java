@@ -75,6 +75,8 @@ public class BoardController {
 	@RequestMapping(value = "/view.do")
 	public String view(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {  
 		
+		boardService.updateBoardCount(boardVO);
+		
 		BoardVO findBoard = boardService.selectBoard(boardVO);
 		System.out.println(findBoard);
 		model.addAttribute("boardVO", findBoard);

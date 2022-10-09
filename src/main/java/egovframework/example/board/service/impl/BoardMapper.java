@@ -39,6 +39,14 @@ public interface BoardMapper {
 	 * @exception Exception
 	 */
 	void updateBoard(BoardVO vo) throws Exception;
+	
+	/**
+	 * 글 조회수 증가
+	 * @param vo - 조회수 증가할 정보가 담긴 BoardVO
+	 * @return void형
+	 * @exception Exception
+	 */
+	void updateBoardCount(BoardVO vo) throws Exception;
 
 	/**
 	 * 글을 삭제한다.
