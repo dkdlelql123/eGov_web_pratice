@@ -48,6 +48,12 @@ function mod(){
 }
 
 function del(){
+	let cnt = ${fn:length(replyList)};
+	if( cnt != 0 ){
+		alert("댓글이 있는 글은 삭제할 수 없습니다.");
+		return;
+	}
+	
 	if( !confirm("삭제하시겠습니까? ")){
 		return;
 	}

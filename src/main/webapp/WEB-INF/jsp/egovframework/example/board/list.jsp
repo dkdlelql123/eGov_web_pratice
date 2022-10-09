@@ -119,7 +119,7 @@ function logout(){
 				      <tr>
 				        <td><c:out value="${board.idx}" /></td>
 				        <td><a href="javascript:view(${board.idx});">
-				        	<c:out value="${board.title}" />[<c:out value="${board.extra__replyCount}" />]
+				        	<c:out value="${board.title}" /> ...<c:out value="${board.extra__replyCount}" />
 				        </a></td> 
 				        <td><c:out value="${board.count}" /></td>
 				        <td><c:out value="${board.writerName}" /></td>
