@@ -31,6 +31,7 @@ public class BoardVO extends SampleDefaultVO {
 	/** 댓글*/
 	private int relId;
 	private String reply;
+	private int extra__replyCount;
 
 	/** 파일 */
 	private String filename;
@@ -112,4 +113,12 @@ public class BoardVO extends SampleDefaultVO {
 	public void setUserPw(String userPw) {
 		this.userPw = userPw;
 	}  
+	
+
+	public int getExtra__replyCount() {
+		return extra__replyCount;
+	}
+	public void setExtra__replyCount(int extra__replyCount) {
+		this.extra__replyCount = extra__replyCount;
+	}
 }

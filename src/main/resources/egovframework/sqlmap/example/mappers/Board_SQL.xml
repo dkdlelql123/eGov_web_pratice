@@ -71,9 +71,10 @@
 				  , a.COUNT as count 
 				  , a.INDATE as indate
 				  , b.NAME as writerName
+				  , (SELECT COUNT(idx) FROM tb_reply r WHERE r.relID = a.idx) as extra__replyCount
 			FROM tb_board a 
 			LEFT JOIN tb_user b
-			ON a.WRITER = b.USERID
+			ON a.WRITER = b.USERID 
 			WHERE 1=1
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        AND	a.TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
