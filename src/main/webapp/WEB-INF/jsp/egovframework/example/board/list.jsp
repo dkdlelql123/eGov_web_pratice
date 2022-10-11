@@ -135,8 +135,10 @@ function fn_egov_link_page(pageNo){
 				  </table>
 				  
 				<div id="paging">
+					<ul class="pagination">
 	        		<ui:pagination paginationInfo = "${paginationInfo}" type="image" jsFunction="fn_egov_link_page" />
 	        		<%-- <form:hidden path="pageIndex" /> --%>
+	        		</ul>
 	        	</div>
 			</div>
         	
